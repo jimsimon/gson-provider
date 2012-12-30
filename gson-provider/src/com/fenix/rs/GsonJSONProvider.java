@@ -1,3 +1,5 @@
+package com.fenix.rs;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;

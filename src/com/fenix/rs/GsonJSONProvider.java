@@ -46,15 +46,8 @@ public final class GsonJSONProvider implements MessageBodyWriter<Object>,
  
   @Override
   public Object readFrom(Class<Object> type, Type genericType, Annotation[] annotations, MediaType mediaType, MultivaluedMap<String, String> httpHeaders, InputStream entityStream) throws IOException {
-    
     try (InputStreamReader streamReader = new InputStreamReader(entityStream, UTF_8)) {
-      Type jsonType;
-      if (type.equals(genericType)) {
-        jsonType = type;
-      } else {
-        jsonType = genericType;
-      }
-      return getGson().fromJson(streamReader, jsonType);
+      return getGson().fromJson(streamReader, genericType);
     }
   }
  
@@ -70,15 +63,8 @@ public final class GsonJSONProvider implements MessageBodyWriter<Object>,
  
   @Override
   public void writeTo(Object object, Class<?> type, Type genericType, Annotation[] annotations, MediaType mediaType, MultivaluedMap<String, Object> httpHeaders, OutputStream entityStream) throws UnsupportedEncodingException, IOException {
-    
     try (OutputStreamWriter writer = new OutputStreamWriter(entityStream, UTF_8)) {
-      Type jsonType;
-      if (type.equals(genericType)) {
-        jsonType = type;
-      } else {
-        jsonType = genericType;
-      }
-      getGson().toJson(object, jsonType, writer);
+      getGson().toJson(object, genericType, writer);
     }
   }
 }

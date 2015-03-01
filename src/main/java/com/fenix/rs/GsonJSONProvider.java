@@ -39,32 +39,32 @@ public final class GsonJSONProvider implements MessageBodyWriter<Object>,
   }
  
   @Override
-  public boolean isReadable(Class<?> type, Type genericType,
-      java.lang.annotation.Annotation[] annotations, MediaType mediaType) {
+  public boolean isReadable(Class<?> clazz, Type type,
+      Annotation[] annotations, MediaType mediaType) {
     return true;
   }
  
   @Override
-  public Object readFrom(Class<Object> type, Type genericType, Annotation[] annotations, MediaType mediaType, MultivaluedMap<String, String> httpHeaders, InputStream entityStream) throws IOException {
+  public Object readFrom(Class<Object> clazz, Type type, Annotation[] annotations, MediaType mediaType, MultivaluedMap<String, String> httpHeaders, InputStream entityStream) throws IOException {
     try (InputStreamReader streamReader = new InputStreamReader(entityStream, UTF_8)) {
-      return getGson().fromJson(streamReader, genericType);
+      return getGson().fromJson(streamReader, type);
     }
   }
  
   @Override
-  public boolean isWriteable(Class<?> type, Type genericType, Annotation[] annotations, MediaType mediaType) {
+  public boolean isWriteable(Class<?> clazz, Type type, Annotation[] annotations, MediaType mediaType) {
     return true;
   }
  
   @Override
-  public long getSize(Object object, Class<?> type, Type genericType, Annotation[] annotations, MediaType mediaType) {
+  public long getSize(Object object, Class<?> clazz, Type type, Annotation[] annotations, MediaType mediaType) {
     return -1;
   }
  
   @Override
-  public void writeTo(Object object, Class<?> type, Type genericType, Annotation[] annotations, MediaType mediaType, MultivaluedMap<String, Object> httpHeaders, OutputStream entityStream) throws UnsupportedEncodingException, IOException {
+  public void writeTo(Object object, Class<?> clazz, Type type, Annotation[] annotations, MediaType mediaType, MultivaluedMap<String, Object> httpHeaders, OutputStream entityStream) throws UnsupportedEncodingException, IOException {
     try (OutputStreamWriter writer = new OutputStreamWriter(entityStream, UTF_8)) {
-      getGson().toJson(object, genericType, writer);
+      getGson().toJson(object, type, writer);
     }
   }
 }
